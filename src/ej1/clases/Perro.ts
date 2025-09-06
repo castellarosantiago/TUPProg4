@@ -1,7 +1,4 @@
-interface Animal {
-    hacerSonido(): void;
-    moverse():void;
-};
+import { Animal } from "../interfaces/Animal";
 
 export class Perro implements Animal{
     hacerSonido():void {
@@ -11,4 +8,3 @@ export class Perro implements Animal{
         console.log("El perro corre");
     }
 }
-
