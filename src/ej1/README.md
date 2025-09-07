@@ -9,6 +9,11 @@ El archivo `index.ts` crea una instancia de `Perro` y prueba sus métodos.
 Desde el directorio actual, ejecutar en la consola el siguiente comando:
 
 ```bash
+npm run ej1
+
+# o tambien
+
+
 ts-node src/ej1/index.ts
 ```
 ---

@@ -1,0 +1,29 @@
+import { Auto } from "./clases/Auto";
+import { autoElectrico } from "./clases/autoElectrico";
+import { autoCombustible } from "./clases/autoCombustible";
+import { Moto } from "./clases/Moto";
+import { motoElectrica } from "./clases/motoElectrica";
+import { motoCombustible } from "./clases/motoCombustible";
+
+console.log("=== Ejercicio 5 ===");
+
+const auto1 = new Auto(4, "Ford", "Focus", 2018);
+console.log(auto1);
+
+const autoElec = new autoElectrico(4, "Tesla", "Model 3", 2022, 80);
+console.log(autoElec);
+autoElec.cargarBateria();
+
+const autoComb = new autoCombustible(40, 52, 4,"Toyota", "Corolla", 2020);
+console.log(autoComb);
+
+const moto1 = new Moto(2, "Honda", "CBR", 2019);
+console.log(moto1);
+
+const motoElec = new motoElectrica(50, 2, "Super Soco", "TC", 2023);
+console.log(motoElec);
+motoElec.cargarBateria();
+
+const motoComb = new motoCombustible(1, 2, "Yamaha", "FZ", 2021);
+console.log(motoComb);
+motoComb.cargarNafta()

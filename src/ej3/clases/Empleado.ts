@@ -5,5 +5,9 @@ export abstract class Empleado{
     {
         this.nombre=nombre
     }
-    abstract calcularSalario():number
+
+    public getNombre(): string{
+        return this.nombre
+    }
+    public abstract calcularSalario():number
 }

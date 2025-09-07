@@ -4,13 +4,14 @@ function sleep(ms:number){
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export class motoCombustible extends Auto{
+export class autoCombustible extends Auto{
     private litrosNafta:number;
     private litrosMax:number;
 
-    constructor(litrosNafta:number, cantidadRuedas:number, marca:string, modelo:string, anio:number){
+    constructor(litrosNafta:number, litrosMax:number, cantidadRuedas:number, marca:string, modelo:string, anio:number){
         super(cantidadRuedas,marca,modelo,anio)
         this.litrosNafta = litrosNafta;
+        this.litrosMax=litrosMax
     }
 
     override pararMotor():void{

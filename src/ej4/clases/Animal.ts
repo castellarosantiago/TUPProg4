@@ -5,6 +5,9 @@ export abstract class Animal{
         this.nombre=nombre
     }
     
-
-    abstract hacerSonido():void
+    public getNombre(){
+        return this.nombre;
+    }
+    
+    public abstract hacerSonido():void
 }

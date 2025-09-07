@@ -12,6 +12,10 @@ El archivo `index.ts` prueba los métodos de cada clase.
 ## ¿Cómo ejecutar?
 
 ```bash
+npm run ej4
+
+# o tambien
+
 ts-node src/ej4/index.ts
 ```
 

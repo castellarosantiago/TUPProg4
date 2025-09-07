@@ -12,6 +12,10 @@ El archivo `index.ts` crea un arreglo de empleados y muestra sus sueldos.
 ## ¿Cómo ejecutar?
 
 ```bash
+npm run ej3
+
+# o tambien
+
 ts-node src/ej3/index.ts
 ```
 

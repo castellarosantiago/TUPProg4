@@ -5,10 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-      "dev": "ts-node src/index.ts",
-      "typecheck": "tsc --noEmit",
-      "build": "tsc -p tsconfig.json",
-      "clean": "rimraf dist"
+    "dev": "ts-node src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist",
+    "start": "ts-node src/index.ts",
+    "ej1": "ts-node src/ej1/index.ts",
+    "ej2": "ts-node src/ej2/index.ts",
+    "ej3": "ts-node src/ej3/index.ts",
+    "ej4": "ts-node src/ej4/index.ts",
+    "ej5": "ts-node src/ej5/index.ts"
   },
   "repository": {
     "type": "git",

@@ -12,6 +12,10 @@ El archivo `index.ts` crea y prueba instancias de cada tipo, incluyendo la carga
 ## ¿Cómo ejecutar?
 
 ```bash
+npm run ej5
+
+# o tambien
+
 ts-node src/ej5/index.ts
 ```
 

@@ -12,6 +12,10 @@ El archivo `index.ts` crea instancias de cada figura y muestra sus áreas y per�
 ## ¿Cómo ejecutar?
 
 ```bash
+npm run ej2
+
+# o tambien
+
 ts-node src/ej2/index.ts
 ```
 ---

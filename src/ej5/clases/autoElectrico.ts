@@ -1,7 +1,7 @@
 import { Electrico } from "../interfaces/Electrico";
 import { Auto } from "./Auto";
 
-export class AutoElectrico extends Auto implements Electrico{
+export class autoElectrico extends Auto implements Electrico{
     cargaBateria: number;
     cargaMaxima: number = 100;
     constructor(cantidadRuedas:number, marca:string, modelo:string, anio:number, cargaBateria:number){

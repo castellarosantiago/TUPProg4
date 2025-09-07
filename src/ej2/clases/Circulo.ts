@@ -6,7 +6,6 @@ export class Circulo extends FiguraGeometrica{
         super(nombre);
         this.radio=radio;
     }
-
     calcularArea(): number {
         return 3.14 * (this.radio)**2
     }

@@ -1,13 +1,17 @@
 import { Animal } from "./Animal";
 
 export class Zorro extends Animal{
-    private especie:string
+    protected especie:string;
     constructor(nombre:string, especie:string){
-        super(nombre)
-        this.especie = especie;
+        super(nombre);
+        this.especie=especie;
+    }
+
+    public getEspecie(){
+        return this.especie;
     }
 
     hacerSonido(): void {
-        console.log("Ninininini");
+        console.log("'Ninininini'");
     }
 } 

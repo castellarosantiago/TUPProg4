@@ -32,7 +32,7 @@ export class motoCombustible extends Moto{
     }
 
     combustibleBajo():void {
-        if (this.litrosNafta < 10 ){
+        if (this.litrosNafta < 3 ){
             console.log("El combustible del auto es bajo.");
         }
     }

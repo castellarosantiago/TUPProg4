@@ -26,11 +26,21 @@
    Usa el siguiente comando, reemplazando `ejX` por el número del ejercicio que quieras probar:
 
    ```bash
+   npm run ejX
+
+O tambien:
+
    ts-node src/ejX/index.ts
 
     ---
 
    Ejemplo: Para ejecutar el ejercicio 3:
+
+   npm run ej3
+
+   o alternativamente
+
+   ts-node src/ej3/index.ts
 
 # 3.Contenidos de cada carpeta
 
@@ -43,3 +53,7 @@ interfaces/: Interfaces utilizadas (si aplica).
 
 Se puede ejecutar cada ejercicio de forma independiente
 Si se quiere, se puede crear un archivo src/index.ts general para ejecutar todos los ejercicios juntos
+
+---
+
+Si surgen dudas, consultar el README de cada ejercicio
