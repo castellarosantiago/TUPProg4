@@ -2,8 +2,8 @@ import { Moto } from "./Moto"
 import { Electrico } from "../interfaces/Electrico";
 
 export class motoElectrica extends Moto implements Electrico{
-    private cargaBateria:number;
-    private cargaMax:number = 100;
+    cargaBateria:number;
+    cargaMaxima:number = 100;
 
     constructor(cargaBateria:number, cantidadRuedas:number, marca:string, modelo:string, anio:number){
         super(cantidadRuedas,marca,modelo,anio)
@@ -18,20 +18,21 @@ export class motoElectrica extends Moto implements Electrico{
         console.log("Motor prendido con el boton.");
     }
 
-    combustibleBajo():void {
-        if (this.litrosNafta < 3 ){
-            console.log("El combustible de la moto es bajo.");
-        }
+    async cargarBateria() {
+        console.log((`Cargando bateria...`))
+        while (this.cargaBateria < this.cargaMaxima){
+            this.cargaBateria += 1;
+            console.log(`Progreso de carga: ${this.cargaBateria}%`)
+            await this.sleep(1000);
+        }  
+        console.log("Bateria completamente cargada")
     }
-
-    cargarNafta(litros:number):void{
-        let sumaLitros = this.litrosNafta + litros;
-        if (sumaLitros  > this.litrosMax){
-            console.log("Los litros que desea cargar sobrepasan la cantidad maxima.")
-        } else {
-            this.litrosMax = sumaLitros
-            console.log("Cargando combustible .. ");
-            console.log(`Combustible actualizado: ${this.litrosMax}`);
+    sleep(ms:number) {
+        return new Promise(resolve => setTimeout(resolve, ms))
+    }
+    bateriaBaja(): void {
+        if (this.cargaBateria<20){
+            console.log("Nivel de bateria bajo! Considere cargar el vehiculo.")
         }
     }
 }

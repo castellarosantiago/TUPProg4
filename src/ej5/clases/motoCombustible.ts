@@ -1,5 +1,9 @@
 import { Moto } from "./Moto"
 
+function sleep(ms:number){
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export class motoCombustible extends Moto{
     private litrosNafta:number;
     private litrosMax:number = 8;
@@ -17,20 +21,19 @@ export class motoCombustible extends Moto{
         console.log("Motor prendido con la llave.");
     }
 
-    combustibleBajo():void {
-        if (this.litrosNafta < 3 ){
-            console.log("El combustible de la moto es bajo.");
+    async cargarNafta(){
+        console.log("Cargando nafta...");
+        while(this.litrosNafta < this.litrosMax){
+            this.litrosNafta += 1;
+            console.log(`Litros cargados: ${this.litrosNafta}`)
+            await sleep(1000);
         }
+        console.log("Tanque lleno.")
     }
 
-    cargarNafta(litros:number):void{
-        let sumaLitros = this.litrosNafta + litros;
-        if (sumaLitros  > this.litrosMax){
-            console.log("Los litros que desea cargar sobrepasan la cantidad maxima.")
-        } else {
-            this.litrosMax = sumaLitros
-            console.log("Cargando combustible .. ");
-            console.log(`Combustible actualizado: ${this.litrosMax}`);
+    combustibleBajo():void {
+        if (this.litrosNafta < 10 ){
+            console.log("El combustible del auto es bajo.");
         }
     }
 }
