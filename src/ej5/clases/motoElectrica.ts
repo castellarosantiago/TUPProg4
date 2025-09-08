@@ -1,6 +1,11 @@
 import { Moto } from "./Moto"
 import { Electrico } from "../interfaces/Electrico";
 
+
+    function sleep(ms:number) {
+        return new Promise(resolve => setTimeout(resolve, ms))
+    }
+    
 export class motoElectrica extends Moto implements Electrico{
     cargaBateria:number;
     cargaMaxima:number = 100;
@@ -23,13 +28,11 @@ export class motoElectrica extends Moto implements Electrico{
         while (this.cargaBateria < this.cargaMaxima){
             this.cargaBateria += 1;
             console.log(`Progreso de carga: ${this.cargaBateria}%`)
-            await this.sleep(1000);
+            await sleep(1000);
         }  
         console.log("Bateria completamente cargada")
     }
-    sleep(ms:number) {
-        return new Promise(resolve => setTimeout(resolve, ms))
-    }
+
     bateriaBaja(): void {
         if (this.cargaBateria<20){
             console.log("Nivel de bateria bajo! Considere cargar el vehiculo.")

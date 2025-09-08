@@ -9,6 +9,11 @@
 Este ejercicio implementa empleados de tiempo completo y medio tiempo.  
 El archivo `index.ts` crea un arreglo de empleados y muestra sus sueldos.
 
+
+# Diagrama realizado para este ejercicio.
+
+![Captura diagrama](DiagramaEj3.png)
+
 ## ¿Cómo ejecutar?
 
 ```bash

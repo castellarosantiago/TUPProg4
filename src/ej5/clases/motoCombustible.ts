@@ -21,7 +21,7 @@ export class motoCombustible extends Moto{
         console.log("Motor prendido con la llave.");
     }
 
-    async cargarNafta(){
+    async cargarNafta():Promise<void>{
         console.log("Cargando nafta...");
         while(this.litrosNafta < this.litrosMax){
             this.litrosNafta += 1;

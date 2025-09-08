@@ -23,7 +23,7 @@ export class autoCombustible extends Auto{
     }
 
 
-    async cargarNafta(){
+    async cargarNafta():Promise<void>{
         console.log("Cargando nafta...");
         while(this.litrosNafta < this.litrosMax){
             this.litrosNafta += 1;
