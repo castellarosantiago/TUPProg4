@@ -27,12 +27,12 @@ function sleep(ms:number){
 // const moto1 = new Moto(2, "Honda", "CBR", 2019);
 // console.log(moto1);
 
-// const motoElec = new motoElectrica(50, 2, "Super Soco", "TC", 2023);
-// console.log(motoElec);
-// sleep(5000);
-// motoElec.cargarBateria();
+ const motoElec = new motoElectrica(50, 2, "Super Soco", "TC", 2023);
+ console.log(motoElec);
+ sleep(5000);
+ motoElec.cargarBateria();
 
-const motoComb = new motoCombustible(1, 2, "Yamaha", "FZ", 2021);
-console.log(motoComb);
-sleep(5000);
-motoComb.cargarNafta()
+// const motoComb = new motoCombustible(1, 2, "Yamaha", "FZ", 2021);
+// console.log(motoComb);
+// sleep(5000);
+// motoComb.cargarNafta()

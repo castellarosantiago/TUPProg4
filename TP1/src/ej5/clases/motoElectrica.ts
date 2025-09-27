@@ -23,7 +23,7 @@ export class motoElectrica extends Moto implements Electrico{
         console.log("Motor prendido con el boton.");
     }
 
-    async cargarBateria() {
+    async cargarBateria():Promise<void> {
         console.log((`Cargando bateria...`))
         while (this.cargaBateria < this.cargaMaxima){
             this.cargaBateria += 1;
@@ -33,7 +33,7 @@ export class motoElectrica extends Moto implements Electrico{
         console.log("Bateria completamente cargada")
     }
 
-    bateriaBaja(): void {
+    bateriaBaja() {
         if (this.cargaBateria<20){
             console.log("Nivel de bateria bajo! Considere cargar el vehiculo.")
         }
