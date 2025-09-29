@@ -9,7 +9,6 @@ describe("OrderService", () => {
         { size: "M" as const, toppings: ["a", "b", "c", "d", "e", "f"] }
       ]
     };
-    expect(() => crearOrden (orderData)).toThrow(/toppings/i); 
+    expect(() => crearOrden (orderData.domicilio, orderData.pizzas)).toThrow(/toppings/i); 
   });
 }); 
-
