@@ -7,7 +7,10 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "vitest"
+    "dev": "ts-node src/server.ts",
+    "test": "vitest",
+    "test:run": "vitest run --coverage",
+    "test:watch": "vitest --watch"
   },
   "keywords": [],
   "author": "",
@@ -15,11 +18,13 @@
   "type": "commonjs",
   "dependencies": {
     "express": "^5.1.0",
+    "helmet": "^8.1.0",
     "zod": "^4.1.11"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^24.5.2",
+    "@types/supertest": "^6.0.3",
     "supertest": "^7.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",

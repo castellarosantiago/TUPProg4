@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { crearOrden } from "../src/orderService";
+import { crearOrden } from "../src/services/orderService";
 
 describe("OrderService", () => {
   it("no permite más de 5 toppings por pizza", () => {
