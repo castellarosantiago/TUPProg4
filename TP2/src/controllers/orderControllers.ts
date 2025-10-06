@@ -20,60 +20,73 @@
 // export const update = async(req: Request, res: Response)=>{
 //     const updated = await orderService.update(req.params.id, req.body);
 //     res.json(updated)
-// } 
+// }
 
 // export const remove = async(req: Request, res: Response)=>{
 //     await orderService.remove(req.params.id);
 //     res.status(204).end();
 // }
 
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 import * as service from "../services/orderService";
-import { orderSchema } from '../middlewares/orderSchema';
+import { orderSchema } from "../middlewares/orderSchema";
 
-export async function list(req: Request, res: Response){
-    const status = req.query.status as string | undefined;
-    const list = service.getOrdenes(status as any);
-    res.json(list);
+export async function list(req: Request, res: Response) {
+  const status = req.query.status as string | undefined;
+  const list = service.getOrdenes();
+  res.json(list);
 }
 
-export async function get(req: Request, res: Response){
-    try{
-        const o = service.getOrden(req.params.id);
-        res.json(o);
-    }catch(err:any){
-        res.status(err.status || 500).json({error: err.message});
-    }
+export async function get(req: Request, res: Response) {
+  try {
+    const o = service.getOrden(req.params.id);
+    res.json(o);
+  } catch (err: any) {
+    res.status(err.status || 500).json({ error: err.message });
+  }
 }
 
-export async function getStatus(req: Request, res: Response){
-    try{
-        const o = service.getEstado(req.params.estado);
-        res.json(o);
-    }catch(err:any){
-        res.status(err.status || 500).json({error: err.message});
+export async function getStatus(req: Request, res: Response) {
+  try {
+    // read estado from query string (e.g. /orders/order?estado=pendiente)
+    const estado = req.query.estado as string | undefined;
+    if (!estado) {
+      return res.status(422).json({ error: "No esta definido el estado" });
     }
-} 
+    const o = service.getEstado(estado as any);
+    res.json(o);
+  } catch (err: any) {
+    res.status(err.status || 500).json({ error: err.message });
+  }
+}
 
-export async function create(req: Request, res: Response){
-    const parsed = orderSchema.safeParse(req.body);
-    if(!parsed.success){
-        return res.status(422).json({error: parsed.error});
-    }
-    try{
-        const created = service.crearOrden(parsed.data.domicilio, parsed.data.pizzas);
-        res.status(201).json(created);
-    }catch(err:any){
-        res.status(err.status || 500).json({error:err.message});
-    }
+export async function create(req: Request, res: Response) {
+  const parsed = orderSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(422).json({ error: parsed.error });
+  }
+  try {
+    const created = service.crearOrden(
+      parsed.data.domicilio,
+      parsed.data.pizzas
+    );
+    res.status(201).json(created);
+  } catch (err: any) {
+    res.status(err.status || 500).json({ error: err.message });
+  }
 }
 
 //stubs para rutas
 
-export async function update(req: Request, res: Response){
-    res.status(501).json({error: "no implementado"});
+export async function update(req: Request, res: Response) {
+  res.status(501).json({ error: "no implementado" });
 }
 
-export async function remove(req: Request, res: Response){
-    res.status(501).json({error: "no implementado"});
+export async function remove(req: Request, res: Response) {
+  try {
+    const o = service.cancelarOrden(req.params.id);
+    res.json(o);
+  } catch (err: any) {
+    res.status(err.status || 500).json({ error: err.message });
+  }
 }
