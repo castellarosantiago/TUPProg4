@@ -148,3 +148,15 @@ Dime cuál querés que haga y lo hago ahora.
 | T7 | GET /orders/order?estado=pendiente filtra por estado | resetOrders usado y hay al menos una orden pendiente | GET /orders/order?estado=pendiente | GET | 200, array de órdenes filtradas | `tests/controllers.test.ts` |
 
 La matriz resume cada caso de test implementado actualmente, su entrada y el resultado esperado para facilitar la revisión y trazabilidad.
+
+## Capturas de Tests y Coverage
+
+Se incluyen capturas de la ejecución de tests y del reporte de cobertura en la carpeta `src/img`.
+
+![Order Service - pass](src/img/orderServicePass.jpg)
+![Order Service - fail](src/img/orderServiceFail.jpg)
+![Endpoint tests - pass](src/img/endpointPass.jpg)
+![Endpoint tests - fail](src/img/endpointFail.jpg)
+![Coverage report](src/img/coverageReport.jpg)
+
+
