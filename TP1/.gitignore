@@ -1,0 +1,15 @@
+# Node modules
+node_modules/
+
+# Salidas de TypeScript
+dist/
+build/
+*.js
+*.js.map
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de entorno
+.env
