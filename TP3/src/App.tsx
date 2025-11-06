@@ -1,15 +1,14 @@
-//import Menu from './components/Menu';
-//import Order from './components/Order';
+import './App.css'
+import Menu from './components/menu'
+
+function App() {
 
 
-// function App() {
-//   return (
-//     <OrderProvider>
-//       <h1>Cafeteria</h1>
-//       <Menu />
-//       <Order />
-//     </OrderProvider>
-//   );
-// }
+  return (
+    <>
+     <Menu />
+    </>
+  )
+}
 
-//export default App;
+export default App

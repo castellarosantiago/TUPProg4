@@ -1,11 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import App from '../App';
-//import { server } from '../mocks/server';
-//import { rest } from 'msw';
+import Menu from '../components/menu';
 
-// HU1 - 
+// HU1 - Visualización inicial del menú
 test('Mostrar el menu con los productos mockeados', async () => {
-  render(<App />);
+  render(<Menu />);
   await waitFor(() => expect(screen.getByText('Café')).toBeInTheDocument());
   expect(screen.getAllByRole('listitem').length).toBeGreaterThan(0);
 });
+
+
