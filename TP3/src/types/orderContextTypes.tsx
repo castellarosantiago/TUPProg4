@@ -7,4 +7,6 @@ export interface OrderContextType {
     order: OrdenItem[]; 
     addToOrder: (product: Producto) => void;
     removeFromOrder: (productId: string) => void;
+    clearOrder: () => void; 
+    sendOrder: () => Promise<void>;
 }

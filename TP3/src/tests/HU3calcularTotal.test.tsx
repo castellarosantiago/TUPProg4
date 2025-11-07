@@ -24,5 +24,5 @@ test('HU3: Al hacer clic en un ítem, el resumen debe mostrar el ítem y el tota
 
     const totalElement = await screen.findByText(/Total:/i); 
 
-    expect(totalElement).toHaveTextContent('$150.00'); //
+    expect(totalElement).toHaveTextContent('$150.00');
 });

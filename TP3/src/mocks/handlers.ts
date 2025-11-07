@@ -9,5 +9,5 @@ const menu = [
 
 export const handlers = [
   rest.get('http://localhost/api/menu', (req, res, ctx) => res(ctx.status(200), ctx.json(menu))),
-  rest.post('/api/ordenes', (req, res, ctx) => res(ctx.status(201), ctx.json({ message: 'Pedido confirmado' })))
+  rest.post('http://localhost/api/ordenes', (req, res, ctx) => res(ctx.status(201), ctx.json({ message: 'Pedido confirmado' })))
 ];

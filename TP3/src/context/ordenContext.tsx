@@ -45,8 +45,31 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
             return prevOrder.filter(item => item.id !== productId);
         });
     };
+
+    const clearOrder = () => {
+        setOrder([]);
+    };
     
-    const contextValue: OrderContextType = { order, addToOrder, removeFromOrder };
+    const sendOrder = async (): Promise<void> => {
+    if (order.length === 0) {
+        throw new Error("El pedido está vacío.");
+    }
+    
+    // Aquí implementamos el envío al endpoint mockeado por MSW: /api/ordenes
+    const response = await fetch('http://localhost/api/ordenes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: order }),
+    });
+
+    if (!response.ok) {
+        throw new Error("Error al confirmar el pedido.");
+    }
+
+    clearOrder(); 
+};
+
+    const contextValue: OrderContextType = { order, addToOrder, removeFromOrder, clearOrder, sendOrder };
 
     return (
         <OrderContext.Provider value={contextValue}>
