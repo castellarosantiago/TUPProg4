@@ -20,7 +20,6 @@ const Menu: React.FC = () => {
       const datos: Producto[] = await respuesta.json();
       setProductos(datos);
     } catch (err) {
-      // mantener mensaje amigable al usuario y log en consola para debug
       console.error("Error cargando el menú:", err);
       setError("Error al cargar menú");
       setProductos([]);
