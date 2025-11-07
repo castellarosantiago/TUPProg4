@@ -1,8 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import type { Producto } from "../schemas/producto";
+import { useOrder } from "../context/ordenContext";
 
 const Menu: React.FC = () => {
+  const { addToOrder } = useOrder();
   const [productos, setProductos] = useState<Producto[]>([]); // lista de productos
   const [cargando, setCargando] = useState<boolean>(true); // estado de carga
   const [error, setError] = useState<string | null>(null); // mensaje de error
@@ -64,8 +66,8 @@ const Menu: React.FC = () => {
       <h2>Menú</h2>
       <ul>
         {productos.map((producto) => (
-          <li key={producto.id}>
-            {producto.nombre}
+          <li key={producto.id} onClick={() => addToOrder(producto)} style={{ cursor: 'pointer' }}>
+            {producto.nombre} — ${producto.precio}
           </li>
         ))}
       </ul>
