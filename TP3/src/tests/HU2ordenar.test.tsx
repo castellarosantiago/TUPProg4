@@ -16,18 +16,14 @@
 
 import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event'; 
-import Menu from '../components/menu';
-import { OrderProvider } from '../context/ordenContext';
-
+import App from '../App';
 
 //AHORA DEBE FALLAR
 test('HU2 - Agregar productos al pedido', async () => {
   const CAFE_MOCK = { id: '1', nombre: 'Café', precio: 150 };
   const mockAddToOrder = vi.fn(); 
   
-  render(<OrderProvider>
-            <Menu />
-        </OrderProvider>); 
+  render(<App />); 
 
   const cafeItem = await screen.findByText(/Café/i); 
   await user.click(cafeItem); 

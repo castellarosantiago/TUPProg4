@@ -1,12 +1,9 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import Menu from '../components/menu';
-import { OrderProvider } from '../context/ordenContext';
+import App from '../App';
 
 test('HU1 - Mostrar el menu con los productos mockeados', async () => {
   render(
-    <OrderProvider>
-      <Menu />
-    </OrderProvider>
+    <App />
   );
     const cafeItem = await screen.findByText(/Café/i); 
     

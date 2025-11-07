@@ -1,12 +1,17 @@
 import './App.css'
 import Menu from './components/menu'
+import Orden from './components/order'
+import { OrderProvider } from './context/ordenContext'
 
 function App() {
 
 
   return (
     <>
-     <Menu />
+      <OrderProvider>
+        <Menu />
+        <Orden />
+      </OrderProvider>
     </>
   )
 }
