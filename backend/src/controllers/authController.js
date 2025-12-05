@@ -2,9 +2,31 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { db } = require('../config/database');
 
-// VULNERABLE: Sin rate limiting para prevenir brute force
+const loginAttempts = new Map();
+
 const login = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, captchaId, captchaText } = req.body;
+  
+  const attemptKey = username;
+  const attempts = loginAttempts.get(attemptKey) || { count: 0, lastAttempt: 0 };
+  
+  if (attempts.count >= 3) {
+    if (!captchaId || !captchaText) {
+      return res.status(400).json({ error: 'Se requiere captcha después de 3 intentos fallidos' });
+    }
+    
+    const { captchaStore } = require('./captchaController');
+    const stored = captchaStore.get(captchaId);
+    if (!stored || stored.text !== captchaText.toLowerCase()) {
+      return res.status(400).json({ error: 'CAPTCHA inválido' });
+    }
+  }
+  
+  const delay = attempts.count > 0 ? Math.min(Math.pow(2, attempts.count - 1) * 1000, 8000) : 0;
+  
+  if (delay > 0) {
+    await new Promise(resolve => setTimeout(resolve, delay));
+  }
   
   const query = `SELECT * FROM users WHERE username = ?`;
   
@@ -14,6 +36,9 @@ const login = async (req, res) => {
     }
     
     if (results.length === 0) {
+      attempts.count++;
+      attempts.lastAttempt = Date.now();
+      loginAttempts.set(attemptKey, attempts);
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
     
@@ -21,8 +46,13 @@ const login = async (req, res) => {
     const isValidPassword = await bcrypt.compare(password, user.password);
     
     if (!isValidPassword) {
+      attempts.count++;
+      attempts.lastAttempt = Date.now();
+      loginAttempts.set(attemptKey, attempts);
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
+    
+    loginAttempts.delete(attemptKey);
     
     const token = jwt.sign(
       { id: user.id, username: user.username }, 
@@ -63,21 +93,21 @@ const verifyToken = (req, res) => {
   }
 };
 
-// VULNERABLE: Blind SQL Injection
 const checkUsername = (req, res) => {
   const { username } = req.body;
   
-  // VULNERABLE: SQL injection que permite inferir información
-  const query = `SELECT COUNT(*) as count FROM users WHERE username = '${username}'`;
+  const query = 'SELECT COUNT(*) as count FROM users WHERE username = ?';
   
-  db.query(query, (err, results) => {
+  db.query(query, [username], (err, results) => {
     if (err) {
-      // VULNERABLE: Expone errores de SQL
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({ error: 'Error al verificar usuario' });
     }
     
     const exists = results[0].count > 0;
-    res.json({ exists });
+    
+    setTimeout(() => {
+      res.json({ exists });
+    }, 100);
   });
 };
 

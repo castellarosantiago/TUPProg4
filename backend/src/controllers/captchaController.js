@@ -1,36 +1,66 @@
 const svgCaptcha = require('svg-captcha');
+const crypto = require('crypto');
 
-// Store para captchas (VULNERABLE: almacenamiento inseguro)
-let captchaStore = {};
+const captchaStore = new Map();
+
+const cleanExpiredCaptchas = () => {
+  const now = Date.now();
+  for (const [id, data] of captchaStore.entries()) {
+    if (now - data.createdAt > 5 * 60 * 1000) {
+      captchaStore.delete(id);
+    }
+  }
+};
 
 const generateCaptcha = (req, res) => {
   const captcha = svgCaptcha.create({
-    size: 4,
-    noise: 1,
+    size: 6,
+    noise: 3,
     color: true
   });
   
-  // VULNERABLE: CAPTCHA predecible y almacenado de forma insegura
-  const captchaId = Date.now().toString();
-  captchaStore[captchaId] = captcha.text.toLowerCase();
+  const captchaId = crypto.randomBytes(32).toString('hex');
+  
+  captchaStore.set(captchaId, {
+    text: captcha.text.toLowerCase(),
+    createdAt: Date.now(),
+    used: false
+  });
+  
+  cleanExpiredCaptchas();
   
   res.json({
     captchaId,
-    captcha: captcha.data,
-    // VULNERABLE: Envía la respuesta en modo debug
-    debug: process.env.NODE_ENV === 'development' ? captcha.text : undefined
+    captcha: captcha.data
   });
 };
 
 const verifyCaptcha = (req, res) => {
   const { captchaId, captchaText } = req.body;
   
-  // VULNERABLE: No expira el CAPTCHA y permite múltiples intentos
-  if (captchaStore[captchaId] && captchaStore[captchaId] === captchaText.toLowerCase()) {
-    res.json({ valid: true });
-  } else {
-    res.json({ valid: false });
+  const stored = captchaStore.get(captchaId);
+  
+  if (!stored) {
+    return res.json({ valid: false, error: 'CAPTCHA no encontrado' });
   }
+  
+  const age = Date.now() - stored.createdAt;
+  if (age > 5 * 60 * 1000) {
+    captchaStore.delete(captchaId);
+    return res.json({ valid: false, error: 'CAPTCHA expirado' });
+  }
+  
+  if (stored.used) {
+    return res.json({ valid: false, error: 'CAPTCHA ya utilizado' });
+  }
+  
+  stored.used = true;
+  
+  const isValid = stored.text === captchaText.toLowerCase();
+  
+  setTimeout(() => captchaStore.delete(captchaId), 1000);
+  
+  res.json({ valid: isValid });
 };
 
 module.exports = {

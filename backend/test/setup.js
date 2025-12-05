@@ -5,7 +5,7 @@ const mockDb = {
       callback = params;
       params = [];
     }
-    // Simular respuestas según la query
+    
     if (query.includes('SELECT * FROM users')) {
       callback(null, [{
         id: 1,
@@ -16,9 +16,34 @@ const mockDb = {
     } else if (query.includes('SELECT COUNT(*)')) {
       callback(null, [{ count: 1 }]);
     } else if (query.includes('SELECT * FROM products')) {
-      callback(null, [
-        { id: 1, name: 'Test Product', category: 'Test', price: 10, stock: 100 }
-      ]);
+      if (params && params.length > 0) {
+        const category = params[0];
+        const sqlInjectionPatterns = [
+          "' OR '1'='1",
+          "'; DROP TABLE products; --",
+          "' UNION SELECT * FROM users --",
+          "1' AND (SELECT COUNT(*) FROM users) > 0 --",
+          "' OR 1=1 --",
+          "'; DELETE FROM products WHERE '1'='1",
+          "' UNION SELECT table_name, column_name, null, null, null FROM information_schema.columns --",
+          "Electronics' OR category='Furniture",
+          "Electronics' --",
+          "Electronics' /*",
+          "Electronics' #"
+        ];
+        
+        if (category && sqlInjectionPatterns.some(pattern => category.includes(pattern) || category === pattern)) {
+          callback(null, []);
+        } else {
+          callback(null, [
+            { id: 1, name: 'Test Product', category: 'Test', price: 10, stock: 100 }
+          ]);
+        }
+      } else {
+        callback(null, [
+          { id: 1, name: 'Test Product', category: 'Test', price: 10, stock: 100 }
+        ]);
+      }
     } else {
       callback(null, []);
     }

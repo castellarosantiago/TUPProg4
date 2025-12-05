@@ -4,20 +4,22 @@ const { db } = require('../config/database');
 const getProducts = (req, res) => {
   const { category, search } = req.query;
   
-  // VULNERABLE: Concatenación directa de strings en SQL
   let query = 'SELECT * FROM products WHERE 1=1';
+  const params = [];
   
   if (category) {
-    query += ` AND category = '${category}'`;
+    query += ' AND category = ?';
+    params.push(category);
   }
   
   if (search) {
-    query += ` AND name LIKE '%${search}%'`;
+    query += ' AND name LIKE ?';
+    params.push(`%${search}%`);
   }
   
-  db.query(query, (err, results) => {
+  db.query(query, params, (err, results) => {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({ error: 'Error en el servidor' });
     }
     res.json(results);
   });
